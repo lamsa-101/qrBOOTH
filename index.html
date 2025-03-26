@@ -69,7 +69,7 @@
     </style>
 </head>
 <body>
-    <img src="your-logo-url.png" alt="Logo" class="logo">
+    <img src="https://github.com/lamsa-101/qrBOOTH/blob/main/WhatsApp%20Image%202025-03-24%20at%2014.13.27_24e47866.jpg?raw=true" alt="Logo" class="logo">
     <h1>صور تجربتك!</h1>
     <video id="video" autoplay playsinline></video>
     <br>
@@ -133,20 +133,10 @@
                     countdownDiv.textContent = '';
                     canvas.width = video.videoWidth;
                     canvas.height = video.videoHeight;
-                    ctx.save();
-                    ctx.translate(canvas.width, 0);
-                    ctx.scale(-1, 1);
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    ctx.restore();
-                    
-                    canvas.toBlob(blob => {
-                        if (capturedImageURL) {
-                            URL.revokeObjectURL(capturedImageURL);
-                        }
-                        capturedImageURL = URL.createObjectURL(blob);
-                        preview.src = capturedImageURL;
-                        previewContainer.style.display = 'block';
-                    }, 'image/png');
+                    capturedImageURL = canvas.toDataURL('image/png');
+                    preview.src = capturedImageURL;
+                    previewContainer.style.display = 'block';
                 }
             }, 1000);
         });
@@ -159,9 +149,6 @@
         
         document.getElementById('retry').addEventListener('click', () => {
             previewContainer.style.display = 'none';
-            if (capturedImageURL) {
-                URL.revokeObjectURL(capturedImageURL);
-            }
             capturedImageURL = null;
         });
         
